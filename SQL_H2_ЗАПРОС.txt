@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS MARK (
                                     value TEXT NOT NULL
 );
 
+
 INSERT INTO MARK VALUES
 (1, 'Отлично', 5),
 (2, 'Хорошо', 4),
@@ -77,7 +78,6 @@ INSERT INTO MARK VALUES
 (5, 'Зачет', 'з'),
 (6, 'Незачет', 'н'),
 (7, 'Неявка', '');
-
 
 alter table STUDENT add foreign key (study_group_id) references STUDY_GROUP(id);
 alter table STUDY_PLAN add foreign key (subject_id) references SUBJECT(id);

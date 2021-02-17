@@ -22,12 +22,11 @@ public class MarkJdbc{
     }
 
     private Mark mapMark(ResultSet rs, int i) throws SQLException{
-        Mark mark = new Mark(
+        return new Mark(
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("value")
         );
-        return mark;
     }
 
     public Mark search(String mark){
