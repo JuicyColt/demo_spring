@@ -36,34 +36,34 @@ public class StudentJdbc {
     }
 
     //  Создание студента
-    public void CreateStudent(int id, String surname, String name, String second_name) {
-        this.jdbcTemplate.update(
-                "INSERT INTO STUDENT VALUES(?, ?, ?, ?)",
-                id, surname, name,second_name);
+    public int CreateStudent(int id, String surname, String name, String second_name, int study_group_id) {
+        return jdbcTemplate.update(
+                "INSERT INTO STUDENT VALUES(?, ?, ?, ?, ?)",
+                id, surname, name,second_name, study_group_id);
     }
 
-    public void CreateStudent(Student student) {
-        this.jdbcTemplate.update(
-                "INSERT INTO STUDENT VALUES(?, ?, ?, ?)",
+    public int CreateStudent(Student student) {
+        return jdbcTemplate.update(
+                "INSERT INTO STUDENT VALUES(?, ?, ?, ?, ?)",
                 student.getId(), student.getSurname(),
-                student.getName(),student.getSecond_nameName());
+                student.getName(),student.getSecondName(),
+                student.getStudy_group_id());
     }
 
     //  Редактирование студента
-    public void UpdateStudent(int id, String surname, String name, String second_name) {
-        this.jdbcTemplate.update(
-                "MERGE INTO CUSTOMER KEY (ID) VALUES (?, ?, ?, ?)",
-                id, surname, name,second_name);
+    public int UpdateStudent(int id, String surname, String name, String second_name, int study_group_id) {
+        return jdbcTemplate.update(
+                "MERGE INTO CUSTOMER KEY (ID) VALUES (?, ?, ?, ?, ?)",
+                id, surname, name,second_name, study_group_id);
 
     }
 
-    public void UpdateStudent(Student student) {
-        int status = jdbcTemplate.update("UPDATE STUDENT SET VALUES(?, ?, ?, ?)",
+    public int UpdateStudent(Student student) {
+        return jdbcTemplate.update(
+                "MERGE INTO CUSTOMER KEY (ID) VALUES (?, ?, ?, ?, ?)",
                 student.getId(), student.getSurname(),
-                student.getName(),student.getSecond_nameName());
-        if(status == 0){
-            CreateStudent(student);
-        }
+                student.getName(),student.getSecondName(),
+                student.getStudy_group_id());
     }
 
 

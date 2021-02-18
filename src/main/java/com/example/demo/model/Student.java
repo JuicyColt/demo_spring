@@ -6,6 +6,7 @@ public class Student {
     private String surname;
     private String name;
     private String second_name;
+    private int study_group_id;
 
     public Student(int id, String surname, String name, String second_name){
         this.id = id;
@@ -35,10 +36,17 @@ public class Student {
         this.name = name;
     }
 
-    public String getSecond_nameName() {
+    public String getSecondName() {
         return second_name;
     }
     public void setSecond_nameName(String second_name) {
         this.second_name = second_name;
+    }
+
+    public int getStudy_group_id() {
+        return study_group_id;
+    }
+    public void setStudy_group_id(int study_group_id) {
+        this.study_group_id = study_group_id;
     }
 }
