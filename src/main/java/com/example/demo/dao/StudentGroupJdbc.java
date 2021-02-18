@@ -19,13 +19,13 @@ public class StudentGroupJdbc {
 
     //  Просмотр группы
     public StudentGroup get(int id){
-        String sql = "SELECT * FROM STUDENT_GROUP WHERE id = ?";
+        String sql = "SELECT * FROM STUDY_GROUP WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, this::mapStudentGroup, id);
     }
 
     //  Просмотр всех групп
     public List<StudentGroup> getAll(){
-        String sql = "SELECT * FROM STUDENT_GROUP";
+        String sql = "SELECT * FROM STUDY_GROUP";
         return jdbcTemplate.query(sql, this::mapStudentGroup);
     }
 
@@ -36,15 +36,39 @@ public class StudentGroupJdbc {
         );
     }
 
-    // TODO
     //  Редактирование группы
+    public void UpdateStudentGroup(int id, String name) {
+        this.jdbcTemplate.update(
+                "MERGE INTO STUDY_GROUP KEY (ID) VALUES (?, ?)",
+                id, name);
 
-    //  TODO
+    }
+
+    public void UpdateStudentGroup(StudentGroup student_group) {
+        int status = jdbcTemplate.update(
+                "INSERT INTO STUDY_GROUP VALUES(?, ?)",
+                student_group.getId(), student_group.getName());
+        if(status == 0){
+            CreateStudentGroup(student_group);
+        }
+    }
+
     //   Создание группы
+    public void CreateStudentGroup(int id, StudentGroup name) {
+        this.jdbcTemplate.update(
+                "INSERT INTO STUDY_GROUP VALUES(?, ?)",
+                id, name);
+    }
+
+    public void CreateStudentGroup(StudentGroup student_group) {
+        this.jdbcTemplate.update(
+                "INSERT INTO STUDY_GROUP VALUES(?, ?)",
+                student_group.getId(), student_group.getName());
+    }
 
 
     //  Удаление студента
     public int delete(String id) {
-        return jdbcTemplate.update("DELETE FROM STUDENT_GROUP WHERE id = ?", id);
+        return jdbcTemplate.update("DELETE FROM STUDY_GROUP WHERE id = ?", id);
     }
 }

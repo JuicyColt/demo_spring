@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Journal;
+import com.example.demo.model.Student;
 import com.example.demo.model.StudentGroup;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,12 +32,24 @@ public class JournalJdbc {
     //  Просмотр записей журнала по группе
     public Journal getBy(int study_group_id){
         String sql = "SELECT * FROM JOURNAL WHERE STUDENT_ID IN" +
-                "(SELECT ID FROM STUDENTWHERE STUDY_GROUP_ID = ?) ";
+                "(SELECT ID FROM STUDENT WHERE STUDY_GROUP_ID = ?) ";
         return jdbcTemplate.queryForObject(sql, this::mapJournal, study_group_id);
     }
 
-    //  TODO
     //   Редактирование оценок в журнале
+    public void UpdateJournal(int id, int student_id, int study_plan_id, byte in_time, int count, int mark_id) {
+        this.jdbcTemplate.update(
+                "MERGE INTO JOURNAL KEY (ID) VALUES (?, ?, ?, ?, ?, ?)",
+                id, student_id, study_plan_id, in_time, count,  mark_id);
+    }
+
+    public void UpdateStudent(Journal journal) {
+        int status = jdbcTemplate.update("MERGE INTO JOURNAL KEY (ID) VALUES (?, ?, ?, ?, ?, ?)",
+                journal.getId(), journal.getStudent_id(),
+                journal.getStudy_plan_id(), journal.getIn_time(),
+                journal.getCount(), journal.getMark_id()
+        );
+    }
 
     private Journal mapJournal(ResultSet rs, int i) throws SQLException{
         return new Journal(

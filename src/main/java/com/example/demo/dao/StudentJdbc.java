@@ -24,9 +24,9 @@ public class StudentJdbc {
     }
 
     //  Просмотр студентов по группе
-    public Student getStudentByGroup(int study_group_id){
+    public List<Student> getStudentByGroup(int study_group_id){
         String sql = "SELECT * FROM STUDENT WHERE study_group_id = ?";
-        return jdbcTemplate.queryForObject(sql, this::mapStudent, study_group_id);
+        return jdbcTemplate.query(sql, this::mapStudent, study_group_id);
     }
 
     //  Просмотр всех студентов
@@ -35,7 +35,6 @@ public class StudentJdbc {
         return jdbcTemplate.query(sql, this::mapStudent);
     }
 
-    // TODO
     //  Создание студента
     public void CreateStudent(int id, String surname, String name, String second_name) {
         this.jdbcTemplate.update(
@@ -43,8 +42,30 @@ public class StudentJdbc {
                 id, surname, name,second_name);
     }
 
-    // TODO
+    public void CreateStudent(Student student) {
+        this.jdbcTemplate.update(
+                "INSERT INTO STUDENT VALUES(?, ?, ?, ?)",
+                student.getId(), student.getSurname(),
+                student.getName(),student.getSecond_nameName());
+    }
+
     //  Редактирование студента
+    public void UpdateStudent(int id, String surname, String name, String second_name) {
+        this.jdbcTemplate.update(
+                "MERGE INTO CUSTOMER KEY (ID) VALUES (?, ?, ?, ?)",
+                id, surname, name,second_name);
+
+    }
+
+    public void UpdateStudent(Student student) {
+        int status = jdbcTemplate.update("UPDATE STUDENT SET VALUES(?, ?, ?, ?)",
+                student.getId(), student.getSurname(),
+                student.getName(),student.getSecond_nameName());
+        if(status == 0){
+            CreateStudent(student);
+        }
+    }
+
 
     private Student mapStudent(ResultSet rs, int i) throws SQLException{
         return new Student(
