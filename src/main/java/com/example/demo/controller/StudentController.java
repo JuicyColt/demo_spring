@@ -19,7 +19,7 @@ public class StudentController {
     @PostMapping("/student")
     int newStudent(@RequestBody Student newStudent) {
         try{
-            return studentJdbc.CreateStudent(newStudent);
+            return studentJdbc.UpdateStudent(newStudent);
         }
         catch (Exception e){
             return -1;
