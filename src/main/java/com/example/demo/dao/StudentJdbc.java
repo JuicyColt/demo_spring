@@ -53,14 +53,14 @@ public class StudentJdbc {
     //  Редактирование студента
     public int UpdateStudent(int id, String surname, String name, String second_name, int study_group_id) {
         return jdbcTemplate.update(
-                "MERGE INTO CUSTOMER KEY (ID) VALUES (?, ?, ?, ?, ?)",
+                "MERGE INTO STUDENT KEY (ID) VALUES (?, ?, ?, ?, ?)",
                 id, surname, name,second_name, study_group_id);
 
     }
 
     public int UpdateStudent(Student student) {
         return jdbcTemplate.update(
-                "MERGE INTO CUSTOMER KEY (ID) VALUES (?, ?, ?, ?, ?)",
+                "MERGE INTO STUDENT KEY (ID) VALUES (?, ?, ?, ?, ?)",
                 student.getId(), student.getSurname(),
                 student.getName(),student.getSecondName(),
                 student.getStudy_group_id());
