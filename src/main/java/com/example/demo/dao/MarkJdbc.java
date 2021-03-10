@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class MarkJdbc{
@@ -21,6 +22,11 @@ public class MarkJdbc{
         return jdbcTemplate.queryForObject(sql, this::mapMark, id);
     }
 
+    public List<Mark> getAll(){
+        String sql = "SELECT * FROM MARK";
+        return jdbcTemplate.query(sql, this::mapMark);
+    }
+
     private Mark mapMark(ResultSet rs, int i) throws SQLException{
         return new Mark(
                 rs.getInt("id"),
@@ -29,8 +35,8 @@ public class MarkJdbc{
         );
     }
 
-    public Mark search(String mark){
-        String sql = "SELECT * FROM MARK WHERE name = ?";
-        return jdbcTemplate.queryForObject(sql, Mark.class, mark);
+    public Mark getMarkByValue(String value){
+        String sql = "SELECT * FROM MARK WHERE value = ?";
+        return jdbcTemplate.queryForObject(sql, this::mapMark, value);
     }
 }

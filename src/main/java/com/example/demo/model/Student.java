@@ -8,11 +8,12 @@ public class Student {
     private String second_name;
     private int study_group_id;
 
-    public Student(int id, String surname, String name, String second_name){
+    public Student(int id, String surname, String name, String second_name, int study_group_id){
         this.id = id;
         this.surname = surname;
         this.name = name;
         this.second_name = second_name;
+        this.study_group_id = study_group_id;
     }
 
     public int getId() {

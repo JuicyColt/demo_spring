@@ -72,12 +72,13 @@ public class StudentJdbc {
                 rs.getInt("id"),
                 rs.getString("surname"),
                 rs.getString("name"),
-                rs.getString("second_name")
+                rs.getString("second_name"),
+                rs.getInt("study_group_id")
         );
     }
 
     //  Удаление студента
-    public int delete(String id) {
+    public int delete(Integer id) {
         return jdbcTemplate.update("DELETE FROM STUDENT WHERE id = ?", id);
     }
 

@@ -1,6 +1,5 @@
 package com.example.demo.dao;
 
-import com.example.demo.model.Student;
 import com.example.demo.model.StudentGroup;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class StudentGroupJdbc {
 
     private final JdbcTemplate jdbcTemplate;
@@ -37,20 +37,21 @@ public class StudentGroupJdbc {
     }
 
     //  Редактирование группы
-    public void UpdateStudentGroup(int id, String name) {
-        this.jdbcTemplate.update(
+    public int UpdateStudentGroup(int id, String name) {
+        return jdbcTemplate.update(
                 "MERGE INTO STUDY_GROUP KEY (ID) VALUES (?, ?)",
                 id, name);
 
     }
 
-    public void UpdateStudentGroup(StudentGroup student_group) {
+    public int UpdateStudentGroup(StudentGroup student_group) {
         int status = jdbcTemplate.update(
                 "INSERT INTO STUDY_GROUP VALUES(?, ?)",
                 student_group.getId(), student_group.getName());
         if(status == 0){
             CreateStudentGroup(student_group);
         }
+        return status;
     }
 
     //   Создание группы
@@ -67,8 +68,9 @@ public class StudentGroupJdbc {
     }
 
 
-    //  Удаление студента
-    public int delete(String id) {
+    //  Удаление группы
+    public int delete(Integer id) {
         return jdbcTemplate.update("DELETE FROM STUDY_GROUP WHERE id = ?", id);
     }
+
 }
