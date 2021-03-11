@@ -6,7 +6,7 @@ import com.example.demo.model.Student;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 public class JournalController {
     private final JournalJdbc journalJdbc;
@@ -23,6 +23,16 @@ public class JournalController {
     @GetMapping("/journal/group")
     public List<Journal> getJournalByGroup(@RequestParam(value="study_group_id") Integer study_group_id){
         return journalJdbc.getJournalByGroup(study_group_id);
+    }
+
+    @GetMapping("/journal/types")
+    public List<?> getJournalType(){
+        return journalJdbc.getTypeCourse();
+    }
+
+    @GetMapping("/journal/mark")
+    public List<?> getPerformance(){
+        return journalJdbc.getPerformance();
     }
 
     @PostMapping("/journal")

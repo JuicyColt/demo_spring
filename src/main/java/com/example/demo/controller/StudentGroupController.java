@@ -5,7 +5,7 @@ import com.example.demo.model.StudentGroup;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 public class StudentGroupController {
     private final StudentGroupJdbc studentGroupJdbc;

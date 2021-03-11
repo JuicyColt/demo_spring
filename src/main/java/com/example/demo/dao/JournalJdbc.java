@@ -52,6 +52,25 @@ public class JournalJdbc {
         );
     }
 
+    public List<?> getTypeCourse(){
+        return jdbcTemplate.queryForList(
+                "SELECT S.NAME, E.TYPE FROM EXAM_TYPE E , SUBJECT S, STUDY_PLAN ST " +
+                "WHERE ST.SUBJECT_ID=S.ID AND ST.EXAM_TYPE_ID=E.ID", new Object[] {});
+    }
+
+    public List<?> getPerformance(){
+        return jdbcTemplate.queryForList(
+                "SELECT S.name, S.surname, S.second_name, SUB.NAME as subject, ET.TYPE, J.IN_TIME, J.COUNT, M.NAME as mark, M.VALUE\n" +
+                        "FROM JOURNAL J\n" +
+                        "JOIN STUDENT S ON J.student_id=S.id\n" +
+                        "JOIN STUDY_PLAN ST ON J.study_plan_id=ST.id\n" +
+                        "JOIN SUBJECT SUB on ST.SUBJECT_ID = SUB.ID\n" +
+                        "JOIN EXAM_TYPE ET on ET.ID = ST.EXAM_TYPE_ID\n" +
+                        "JOIN MARK M on M.ID = J.MARK_ID",
+                new Object[] {});
+    }
+
+
     private Journal mapJournal(ResultSet rs, int i) throws SQLException{
         return new Journal(
                 rs.getInt("id"),
