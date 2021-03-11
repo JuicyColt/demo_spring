@@ -35,6 +35,11 @@ public class StudentJdbc {
         return jdbcTemplate.query(sql, this::mapStudent);
     }
 
+    public List<Student> getAllLocal(){
+        String sql = "SELECT * FROM student_local";
+        return jdbcTemplate.query(sql, this::mapStudent);
+    }
+
     //  Создание студента
     public int CreateStudent(int id, String surname, String name, String second_name, int study_group_id) {
         return jdbcTemplate.update(
