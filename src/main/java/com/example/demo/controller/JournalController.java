@@ -21,7 +21,7 @@ public class JournalController {
     }
 
     @GetMapping("/journal/group")
-    public List<Journal> getJournalByGroup(@RequestParam(value="study_group_id") Integer study_group_id){
+    public List<Journal> getJournalByGroup(@RequestParam(value="group_id") Integer study_group_id){
         return journalJdbc.getJournalByGroup(study_group_id);
     }
 

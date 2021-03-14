@@ -79,6 +79,14 @@ INSERT INTO MARK VALUES
 (6, 'Незачет', 'н'),
 (7, 'Неявка', '');
 
+CREATE TABLE IF NOT EXISTS student_local (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    surname TEXT NOT NULL,
+    name TEXT NOT NULL,
+    second_name TEXT NOT NULL,
+    study_group_id INTEGER NOT NULL
+);
+
 alter table STUDENT add foreign key (study_group_id) references STUDY_GROUP(id);
 alter table STUDY_PLAN add foreign key (subject_id) references SUBJECT(id);
 alter table STUDY_PLAN add foreign key (exam_type_id) references EXAM_TYPE(id);
