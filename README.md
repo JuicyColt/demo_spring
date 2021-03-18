@@ -1,20 +1,6 @@
-# LAB3
+# LAB5
 
 ### added:
-    controller:
-        StudentGroupController
-        JournalController
-        MarkController
-        StudentController
-    
-    dao:
-        StudentGroupJdbc
-        JournalJdbc
-        MarkJdbc
-        StudentJdbc
-        
-    model:
-        StudentGroup
-        Journal
-        Mark
-        Student
+    config:
+        BusConfig
+        BusInitializer
