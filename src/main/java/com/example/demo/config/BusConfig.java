@@ -1,11 +1,15 @@
 package com.example.demo.config;
 
+
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.internal.jshell.tool.MessageHandler;
+import net.progruzovik.bus.dao.EntityDao;
 import net.progruzovik.bus.dao.EntityJdbc;
+import net.progruzovik.bus.dao.InstanceDao;
 import net.progruzovik.bus.dao.InstanceJdbc;
-import net.progruzovik.bus.message.RestReceiver;
-import net.progruzovik.bus.message.RestSender;
+import net.progruzovik.bus.message.*;
+import net.progruzovik.bus.replication.ReplicationService;
+import net.progruzovik.bus.replication.Replicator;
 import net.progruzovik.bus.util.CharBufferNameConverter;
 import net.progruzovik.bus.util.EntityNameConverter;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +20,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.Writer;
+
 
 @Configuration
 @EnableScheduling
@@ -31,7 +35,7 @@ public class BusConfig {
     @Bean
     public Replicator replicator(ObjectMapper mapper, Writer writer, InstanceDao
             instanceDao, EntityDao entityDao) {
-        return new ReplicationService(mapper, writer, instanceDao, entityDao);
+        return new ReplicationService(mapper, (net.progruzovik.bus.message.Writer) writer, instanceDao, entityDao);
     }
     @Bean
     public RestReceiver restReceiver(RestTemplate restTemplate, BusHandler
@@ -45,8 +49,8 @@ public class BusConfig {
                 deanAddress);
     }
     @Bean
-    public Writer writer(ObjectMapper mapper, MessageSender messageSender,
-                         InstanceDao instanceDao) {
+    public MessageWriter writer(ObjectMapper mapper, MessageSender messageSender,
+                                InstanceDao instanceDao) {
         return new MessageWriter(mapper, messageSender, instanceDao);
     }
     @Bean

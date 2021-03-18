@@ -3,6 +3,10 @@ CREATE TABLE IF NOT EXISTS STUDY_GROUP (
                                            name  TEXT NOT NULL
 );
 
+INSERT INTO STUDY_GROUP VALUES
+(1, 'ИКБО-06-17'),
+(2, 'ИКБО-07-17');
+
 CREATE TABLE IF NOT EXISTS STUDENT (
                                        id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
                                        surname TEXT NOT NULL,
@@ -86,6 +90,14 @@ CREATE TABLE IF NOT EXISTS student_local (
     second_name TEXT NOT NULL,
     study_group_id INTEGER NOT NULL
 );
+
+
+INSERT INTO student_local VALUES
+(681, 'Пёсов','Пёс','Пёсович', 1),
+(682, 'Руденко','Валентин','Романович', 2),
+(683, 'Буткова','Елена','Андреевна', 2),
+(684, 'Сельдин','Александр','Сергеевич', 2),
+(685, 'Блохин','Фёдор','Евгеньевич', 2);
 
 alter table STUDENT add foreign key (study_group_id) references STUDY_GROUP(id);
 alter table STUDY_PLAN add foreign key (subject_id) references SUBJECT(id);

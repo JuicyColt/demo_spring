@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.dao.StudentJdbc;
+import net.progruzovik.bus.replication.Replicator;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Component
 @DependsOn("busHandler")
-public class BusInitializer {
+class BusInitializer {
     private final Replicator replicator;
     private final StudentJdbc studentJdbc;
     public BusInitializer(Replicator replicator, StudentJdbc studentJdbc) {
